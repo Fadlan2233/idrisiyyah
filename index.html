@@ -637,6 +637,62 @@ footer strong{color:#fff}
 .portal-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .portal-toast.ok{background:var(--emerald)}
 .portal-toast.err{background:#c0392b}
+
+/* ══ HASIL PAGE ══ */
+.hasil-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.htab{padding:10px 20px;border-radius:9px;border:1.5px solid var(--border);
+  background:var(--white);color:var(--ink-m);font-family:inherit;font-size:13.5px;
+  font-weight:600;cursor:pointer;transition:all .2s;}
+.htab.active{background:var(--brown);color:#fff;border-color:var(--brown);
+  box-shadow:0 3px 12px rgba(90,45,12,.25);}
+.htab:hover:not(.active){border-color:var(--brown-light);color:var(--brown)}
+.hasil-panel{}
+.hasil-empty{text-align:center;padding:60px 24px;background:var(--white);
+  border:1.5px solid var(--border);border-radius:var(--radius);}
+.he-icon{font-size:48px;margin-bottom:16px}
+.hasil-empty h3{font-family:'Amiri',serif;font-size:22px;color:var(--brown);margin-bottom:8px}
+.hasil-empty p{font-size:13.5px;color:var(--ink-m);max-width:360px;margin:0 auto;line-height:1.7}
+.hasil-meta{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);
+  padding:20px 22px;margin-bottom:16px;}
+.hm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:14px}
+.hm-item{background:var(--cream);border-radius:8px;padding:10px 14px}
+.hm-item .hm-label{font-size:10.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--ink-soft);margin-bottom:3px}
+.hm-item .hm-val{font-size:14px;font-weight:600;color:var(--ink)}
+.hasil-sec-card{background:var(--white);border:1.5px solid var(--border);
+  border-radius:var(--radius);margin-bottom:14px;overflow:hidden;}
+.hsc-header{background:linear-gradient(135deg,var(--brown),var(--brown-mid));
+  padding:12px 18px;display:flex;align-items:center;justify-content:space-between;}
+.hsc-header h4{font-size:14px;font-weight:600;color:#fff}
+.hsc-avg{background:rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:700;
+  padding:3px 12px;border-radius:20px;}
+.hsc-body{padding:0}
+.hsc-row{display:flex;align-items:center;justify-content:space-between;
+  padding:11px 18px;border-bottom:1px solid var(--cream-dark);gap:12px;}
+.hsc-row:last-child{border-bottom:none}
+.hsc-row:nth-child(even){background:var(--cream)}
+.hsc-label{font-size:13px;color:var(--ink);flex:1;line-height:1.5}
+.hsc-val{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.hsc-num{font-size:15px;font-weight:700;color:var(--brown);min-width:18px;text-align:center}
+.hsc-bar-wrap{width:80px;height:7px;background:var(--cream-dark);border-radius:4px;overflow:hidden}
+.hsc-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width .4s ease}
+.hasil-open{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);
+  padding:20px 22px;margin-bottom:14px;}
+.hasil-open h4{font-family:'Amiri',serif;font-size:18px;color:var(--brown);margin-bottom:16px}
+.ho-item{margin-bottom:16px}
+.ho-item:last-child{margin-bottom:0}
+.ho-q{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--ink-soft);margin-bottom:5px}
+.ho-a{font-size:13.5px;color:var(--ink);background:var(--cream);border-radius:8px;
+  padding:10px 14px;line-height:1.6;border-left:3px solid var(--gold);}
+.hasil-score{background:linear-gradient(135deg,var(--brown),var(--brown-mid));
+  border-radius:var(--radius);padding:24px;text-align:center;color:#fff;}
+.hasil-score .score-label{font-size:12px;text-transform:uppercase;letter-spacing:.12em;
+  color:rgba(255,255,255,.65);margin-bottom:8px}
+.hasil-score .score-num{font-family:'Amiri',serif;font-size:56px;font-weight:700;
+  color:var(--gold-light);line-height:1}
+.hasil-score .score-max{font-size:14px;color:rgba(255,255,255,.5);margin-top:4px}
+.hasil-score .score-cat{font-size:16px;font-weight:600;color:#fff;margin-top:12px}
 </style>
 </head>
 <body>
@@ -656,6 +712,7 @@ footer strong{color:#fff}
     <button class="nav-btn" onclick="goPage('pengumuman')">📢 Pengumuman</button>
     <button class="nav-btn" onclick="goPage('supervisi')">📋 Supervisi</button>
     <button class="nav-btn" onclick="goPage('kuesioner')">📝 Kuesioner 360°</button>
+    <button class="nav-btn" onclick="goPage('hasil')">📊 Hasil</button>
     <button class="nav-btn" onclick="goPage('kontak')">📞 Kontak</button>
   </div>
   <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
@@ -1011,6 +1068,66 @@ footer strong{color:#fff}
 
 </div>
 
+<!-- ══ HASIL ══ -->
+<div class="page" id="page-hasil">
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">Preview &amp; Rekap</div>
+      <div class="sec-title">Hasil Kuesioner &amp; Supervisi</div>
+      <p class="sec-sub">Lihat isi jawaban secara langsung tanpa perlu download terlebih dahulu.</p>
+      <div class="sec-bar"></div>
+
+      <!-- Tab switcher -->
+      <div class="hasil-tabs">
+        <button class="htab active" onclick="switchHasil('kuesioner')">📝 Kuesioner 360°</button>
+        <button class="htab" onclick="switchHasil('supervisi')">📋 Supervisi</button>
+      </div>
+
+      <!-- KUESIONER RESULT -->
+      <div id="hasil-kuesioner" class="hasil-panel">
+        <div id="hk-empty" class="hasil-empty">
+          <div class="he-icon">📝</div>
+          <h3>Belum ada data kuesioner</h3>
+          <p>Isi kuesioner 360° terlebih dahulu, lalu kembali ke halaman ini untuk melihat hasilnya.</p>
+          <button class="btn2 btn2-p" onclick="goPage('kuesioner')" style="margin-top:16px">Isi Kuesioner →</button>
+        </div>
+        <div id="hk-result" style="display:none">
+          <div class="hasil-meta" id="hk-meta"></div>
+          <div class="hasil-sections" id="hk-sections"></div>
+          <div class="hasil-open" id="hk-open"></div>
+          <div class="hasil-score" id="hk-score"></div>
+          <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn2 btn2-p" onclick="kuesDownloadCSV()">⬇ Download CSV</button>
+            <button class="btn2 btn2-g" onclick="clearHasilKues()">🗑 Hapus Preview</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUPERVISI RESULT -->
+      <div id="hasil-supervisi" class="hasil-panel" style="display:none">
+        <div id="hs-empty" class="hasil-empty">
+          <div class="he-icon">📋</div>
+          <h3>Belum ada data supervisi</h3>
+          <p>Isi form supervisi terlebih dahulu, lalu kembali ke halaman ini untuk melihat hasilnya.</p>
+          <button class="btn2 btn2-p" onclick="goPage('supervisi')" style="margin-top:16px">Isi Supervisi →</button>
+        </div>
+        <div id="hs-result" style="display:none">
+          <div class="hasil-meta" id="hs-meta"></div>
+          <div class="hasil-sections" id="hs-sections"></div>
+          <div class="hasil-open" id="hs-open"></div>
+          <div class="hasil-score" id="hs-score"></div>
+          <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn2 btn2-p" onclick="dlSv()">⬇ Download CSV</button>
+            <button class="btn2 btn2-g" onclick="clearHasilSv()">🗑 Hapus Preview</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <footer><strong>Pesantren Idrisiyyah</strong> — Lembaga Pendidikan Idrisiyyah<br>Pagendingan, Cisayong, Kab. Tasikmalaya, Jawa Barat &middot; <em>Islam for All Mankind</em></footer>
+</div>
+
 <!-- ══ KONTAK ══ -->
 <div class="page" id="page-kontak">
   <div class="sec">
@@ -1041,7 +1158,7 @@ function goPage(name) {
   });
   var target = document.getElementById('page-' + name);
   if (target) target.classList.add('active');
-  var order = ['home','profil','pengumuman','supervisi','kuesioner','kontak'];
+  var order = ['home','profil','pengumuman','supervisi','kuesioner','hasil','kontak'];
   document.querySelectorAll('.nav-btn').forEach(function(b, idx) {
     b.classList.toggle('active', order[idx] === name);
   });
@@ -1156,6 +1273,141 @@ function dlSv() {
   a.click(); URL.revokeObjectURL(url);
   portalToast('✅ File berhasil diunduh!','ok');
 }
+</script>
+
+<!-- ══ HASIL PAGE SCRIPT ══ -->
+<script>
+function ratingColor(v){if(v>=4.5)return'#27ae60';if(v>=3.5)return'#2980b9';if(v>=2.5)return'#f39c12';return'#e74c3c';}
+function scoreCategory(v){if(v>=4.5)return'⭐ Sangat Baik';if(v>=3.5)return'👍 Baik';if(v>=2.5)return'🔶 Cukup';return'⚠ Perlu Perhatian';}
+
+function switchHasil(tab){
+  document.querySelectorAll('.htab').forEach(function(b){
+    b.classList.toggle('active', b.textContent.indexOf(tab==='kuesioner'?'Kuesioner':'Supervisi')>=0);
+  });
+  document.getElementById('hasil-kuesioner').style.display=tab==='kuesioner'?'':'none';
+  document.getElementById('hasil-supervisi').style.display=tab==='supervisi'?'':'none';
+  if(tab==='kuesioner') renderHasilKuesioner(); else renderHasilSupervisi();
+}
+
+function renderHasilKuesioner(){
+  var namaGuru=document.getElementById('namaGuru')?document.getElementById('namaGuru').value.trim():'';
+  var posisi=document.getElementById('posisi')?document.getElementById('posisi').value:'';
+  if(!namaGuru||!posisi){
+    document.getElementById('hk-empty').style.display='';
+    document.getElementById('hk-result').style.display='none'; return;
+  }
+  var anyFilled=false;
+  Object.keys(KUES_SECTIONS).forEach(function(sec){
+    KUES_SECTIONS[sec].forEach(function(_,i){if(document.querySelector('input[name="'+sec+'_'+i+'"]:checked'))anyFilled=true;});
+  });
+  if(!anyFilled){document.getElementById('hk-empty').style.display='';document.getElementById('hk-result').style.display='none';return;}
+  document.getElementById('hk-empty').style.display='none';
+  document.getElementById('hk-result').style.display='';
+  var nama=document.getElementById('nama')?document.getElementById('nama').value:'';
+  var unitMapel=document.getElementById('unitMapel')?document.getElementById('unitMapel').value:'';
+  document.getElementById('hk-meta').innerHTML=
+    '<div style="font-family:\'Amiri\',serif;font-size:18px;color:var(--brown);font-weight:700;margin-bottom:2px">Hasil Kuesioner 360°</div>'+
+    '<div style="font-size:12px;color:var(--ink-soft);margin-bottom:14px">Diisi pada: '+new Date().toLocaleString('id-ID')+'</div>'+
+    '<div class="hm-grid">'+
+    '<div class="hm-item"><div class="hm-label">Penilai</div><div class="hm-val">'+(nama||'Anonim')+'</div></div>'+
+    '<div class="hm-item"><div class="hm-label">Posisi</div><div class="hm-val">'+posisi+'</div></div>'+
+    '<div class="hm-item"><div class="hm-label">Guru Dinilai</div><div class="hm-val">'+namaGuru+'</div></div>'+
+    '<div class="hm-item"><div class="hm-label">Unit / Mapel</div><div class="hm-val">'+(unitMapel||'-')+'</div></div>'+
+    '</div>';
+  var secLabels={A:'A. Kompetensi Mengajar',B:'B. Koordinasi & Kepemimpinan',C:'C. Karakter & Role Model',D:'D. Pembimbingan & Konseling',E:'E. Kompetensi Keagamaan'};
+  var sectionsHTML=''; var grandTotal=0,grandCount=0;
+  Object.keys(KUES_SECTIONS).forEach(function(sec){
+    var items=KUES_SECTIONS[sec]; var secTotal=0,secCount=0; var rowsHTML='';
+    items.forEach(function(item,i){
+      var checked=document.querySelector('input[name="'+sec+'_'+i+'"]:checked');
+      var val=checked?parseInt(checked.value):0;
+      if(checked){secTotal+=val;secCount++;grandTotal+=val;grandCount++;}
+      rowsHTML+='<div class="hsc-row"><span class="hsc-label">'+(i+1)+'. '+item+'</span>'+
+        '<div class="hsc-val"><div class="hsc-bar-wrap"><div class="hsc-bar-fill" style="width:'+(val/5*100)+'%"></div></div>'+
+        '<span class="hsc-num" style="color:'+ratingColor(val)+'">'+(checked?val:'—')+'</span></div></div>';
+    });
+    var avg=secCount>0?(secTotal/secCount).toFixed(2):'—';
+    sectionsHTML+='<div class="hasil-sec-card"><div class="hsc-header"><h4>'+secLabels[sec]+'</h4><span class="hsc-avg">Rata-rata: '+avg+'</span></div><div class="hsc-body">'+rowsHTML+'</div></div>';
+  });
+  document.getElementById('hk-sections').innerHTML=sectionsHTML;
+  var q1=document.getElementById('q1')?document.getElementById('q1').value.trim():'';
+  var q2=document.getElementById('q2')?document.getElementById('q2').value.trim():'';
+  var q3=document.getElementById('q3')?document.getElementById('q3').value.trim():'';
+  document.getElementById('hk-open').innerHTML='<div class="hasil-open"><h4>Pertanyaan Terbuka</h4>'+
+    '<div class="ho-item"><div class="ho-q">1. Kekuatan utama</div><div class="ho-a">'+(q1||'<em style="color:var(--ink-soft)">Tidak diisi</em>')+'</div></div>'+
+    '<div class="ho-item"><div class="ho-q">2. Area yang perlu ditingkatkan</div><div class="ho-a">'+(q2||'<em style="color:var(--ink-soft)">Tidak diisi</em>')+'</div></div>'+
+    '<div class="ho-item"><div class="ho-q">3. Saran pengasuhan & pembinaan</div><div class="ho-a">'+(q3||'<em style="color:var(--ink-soft)">Tidak diisi</em>')+'</div></div></div>';
+  var overall=grandCount>0?(grandTotal/grandCount).toFixed(2):'0';
+  document.getElementById('hk-score').innerHTML='<div class="hasil-score">'+
+    '<div class="score-label">Rata-rata Keseluruhan</div>'+
+    '<div class="score-num">'+overall+'</div>'+
+    '<div class="score-max">dari 5.00</div>'+
+    '<div class="score-cat">'+scoreCategory(parseFloat(overall))+'</div></div>';
+}
+
+function renderHasilSupervisi(){
+  var sup=document.getElementById('sv_sup')?document.getElementById('sv_sup').value.trim():'';
+  var guru=document.getElementById('sv_guru')?document.getElementById('sv_guru').value.trim():'';
+  if(!sup||!guru){document.getElementById('hs-empty').style.display='';document.getElementById('hs-result').style.display='none';return;}
+  var anyFilled=!!document.querySelector('.sstar.active');
+  if(!anyFilled){document.getElementById('hs-empty').style.display='';document.getElementById('hs-result').style.display='none';return;}
+  document.getElementById('hs-empty').style.display='none';
+  document.getElementById('hs-result').style.display='';
+  document.getElementById('hs-meta').innerHTML=
+    '<div style="font-family:\'Amiri\',serif;font-size:18px;color:var(--brown);font-weight:700;margin-bottom:2px">Hasil Supervisi Pembelajaran</div>'+
+    '<div style="font-size:12px;color:var(--ink-soft);margin-bottom:14px">Diisi pada: '+new Date().toLocaleString('id-ID')+'</div>'+
+    '<div class="hm-grid">'+
+    '<div class="hm-item"><div class="hm-label">Supervisor</div><div class="hm-val">'+sup+'</div></div>'+
+    '<div class="hm-item"><div class="hm-label">Jabatan</div><div class="hm-val">'+(document.getElementById('sv_jab').value||'-')+'</div></div>'+
+    '<div class="hm-item"><div class="hm-label">Guru</div><div class="hm-val">'+guru+'</div></div>'+
+    '<div class="hm-item"><div class="hm-label">Mapel</div><div class="hm-val">'+(document.getElementById('sv_mp').value||'-')+'</div></div>'+
+    '<div class="hm-item"><div class="hm-label">Kelas</div><div class="hm-val">'+(document.getElementById('sv_kls').value||'-')+'</div></div>'+
+    '<div class="hm-item"><div class="hm-label">Tanggal</div><div class="hm-val">'+(document.getElementById('sv_tgl').value||'-')+'</div></div>'+
+    '</div>';
+  var secLabels={A:'A. Perencanaan',B:'B. Pelaksanaan',C:'C. Pengelolaan Kelas',D:'D. Penilaian & Umpan Balik'};
+  var sectionsHTML=''; var grandTotal=0,grandCount=0;
+  Object.keys(SV_DATA).forEach(function(sec){
+    var items=SV_DATA[sec]; var secTotal=0; var rowsHTML='';
+    items.forEach(function(item,i){
+      var active=document.querySelector('.sstar[data-sec="'+sec+'"][data-i="'+i+'"].active');
+      var val=active?parseInt(active.dataset.v):0;
+      if(active){secTotal+=val;grandTotal+=val;grandCount++;}
+      rowsHTML+='<div class="hsc-row"><span class="hsc-label">'+(i+1)+'. '+item+'</span>'+
+        '<div class="hsc-val"><div class="hsc-bar-wrap"><div class="hsc-bar-fill" style="width:'+(val/5*100)+'%"></div></div>'+
+        '<span class="hsc-num" style="color:'+ratingColor(val)+'">'+(active?val:'—')+'</span></div></div>';
+    });
+    var avg=(secTotal/items.length).toFixed(2);
+    sectionsHTML+='<div class="hasil-sec-card"><div class="hsc-header"><h4>'+secLabels[sec]+'</h4><span class="hsc-avg">Rata-rata: '+avg+'</span></div><div class="hsc-body">'+rowsHTML+'</div></div>';
+  });
+  document.getElementById('hs-sections').innerHTML=sectionsHTML;
+  var kuat=document.getElementById('sv_kuat')?document.getElementById('sv_kuat').value.trim():'';
+  var tingkat=document.getElementById('sv_tingkat')?document.getElementById('sv_tingkat').value.trim():'';
+  var rek=document.getElementById('sv_rek')?document.getElementById('sv_rek').value.trim():'';
+  document.getElementById('hs-open').innerHTML='<div class="hasil-open"><h4>Catatan &amp; Rekomendasi</h4>'+
+    '<div class="ho-item"><div class="ho-q">Kekuatan yang diamati</div><div class="ho-a">'+(kuat||'<em style="color:var(--ink-soft)">Tidak diisi</em>')+'</div></div>'+
+    '<div class="ho-item"><div class="ho-q">Hal yang perlu ditingkatkan</div><div class="ho-a">'+(tingkat||'<em style="color:var(--ink-soft)">Tidak diisi</em>')+'</div></div>'+
+    '<div class="ho-item"><div class="ho-q">Rekomendasi tindak lanjut</div><div class="ho-a">'+(rek||'<em style="color:var(--ink-soft)">Tidak diisi</em>')+'</div></div></div>';
+  var overall=grandCount>0?(grandTotal/grandCount).toFixed(2):'0';
+  document.getElementById('hs-score').innerHTML='<div class="hasil-score">'+
+    '<div class="score-label">Rata-rata Keseluruhan</div>'+
+    '<div class="score-num">'+overall+'</div>'+
+    '<div class="score-max">dari 5.00</div>'+
+    '<div class="score-cat">'+scoreCategory(parseFloat(overall))+'</div></div>';
+}
+
+function clearHasilKues(){document.getElementById('hk-empty').style.display='';document.getElementById('hk-result').style.display='none';}
+function clearHasilSv(){document.getElementById('hs-empty').style.display='';document.getElementById('hs-result').style.display='none';}
+
+// Hook goPage to auto-render hasil
+var _origGoPage=goPage;
+goPage=function(name){
+  _origGoPage(name);
+  if(name==='hasil'){
+    var activeTab=document.querySelector('.htab.active');
+    if(activeTab&&activeTab.textContent.indexOf('Supervisi')>=0) renderHasilSupervisi();
+    else renderHasilKuesioner();
+  }
+};
 </script>
 
 <!-- ══ KUESIONER SCRIPT (renamed to avoid conflicts) ══ -->
